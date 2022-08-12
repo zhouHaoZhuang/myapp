@@ -1,12 +1,16 @@
 const express = require('express')
 const execSQL = require('./utils/db')
+const history = require('connect-history-api-fallback')
+
 const path = require('path')
 const fs = require('fs')
 const os = require('os')
 
 const app = express()
 const port = 9000
+app.use(history())
 app.use(express.static('www')) //设置静态文件目录
+
 // const cors = require('cors')
 // app.use(cors()) //跨域
 //body-parser: POST请求体解析器，
@@ -15,6 +19,10 @@ const common = require('./api/common/index.js')
 app.use('/api/common', common)
 app.use('/images', express.static(path.join(__dirname, '../uploads')))
 app.use(bodyParser.urlencoded({ extended: true }))
+
+// history({
+//     index: './www/index.html'
+// });
 
 //设置跨域访问
 app.all('*', function (req, res, next) {
@@ -28,7 +36,7 @@ app.all('*', function (req, res, next) {
         'token,Content-Type,Content-Length, Authorization, Accept,X-Requested-With,domain,zdy' //当客户端跨域并需要传递cookie时，需要设置Access-Control-Allow-Headers，并且值为不能为“*”，需要具体配置
     )
     // 指定允许的跨域请求的来源。填写星号（*）表示全部域名；您也可以填写完整域名，例如http://www.aliyun.com。
-    res.header('Access-Control-Allow-Origin', 'http://localhost:8082') //当客户端跨域并需要传递cookie时，需要设置Access-Control-Allow-Origin，并且值为不能为“*”，需要具体配置
+    res.header('Access-Control-Allow-Origin', 'http://localhost:8000') //当客户端跨域并需要传递cookie时，需要设置Access-Control-Allow-Origin，并且值为不能为“*”，需要具体配置
     // 指定允许的跨域请求方法。可同时设置多个方法，多个方法用英文逗号（,）分隔。
     res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
     res.header('X-Powered-By', ' 3.2.1')
@@ -89,10 +97,8 @@ app.get('/select', async function (req, res) {
  */
 function getIpAddress() {
     var ifaces = os.networkInterfaces()
-
     for (var dev in ifaces) {
         let iface = ifaces[dev]
-
         for (let i = 0; i < iface.length; i++) {
             let { family, address, internal } = iface[i]
 
