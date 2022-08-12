@@ -1,4 +1,3 @@
-# vue-pereission-demo
 
 ## Project setup
 ```
