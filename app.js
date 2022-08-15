@@ -1,12 +1,12 @@
 const express = require('express')
 const execSQL = require('./utils/db')
 const history = require('connect-history-api-fallback')
-
 const path = require('path')
 const fs = require('fs')
 const os = require('os')
 
 const app = express()
+
 const port = 9000
 app.use(history())
 app.use(express.static('www')) //设置静态文件目录
@@ -115,3 +115,16 @@ app.listen(port, () => {
         `服务已启动Example app listening at http://${ipAddress}:${port}`
     )
 })
+
+// const io = require('socket.io')(app)
+// io.on('connection', function (socket) {
+//     console.log('a user connected')
+//     socket.on('disconnect', function () {
+//         console.log('a user disconnected')
+//     })
+//     socket.on('message', function (msg) {
+//         console.log(msg)
+//         io.emit('message', msg)
+//     })
+// }
+// )

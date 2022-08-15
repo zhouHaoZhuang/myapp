@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button class="default">
+    发送websocket消息
+  </button>
+  <div>
+    <textarea id="textarea" cols="30" rows="10"></textarea>
+  </div>
+  <script>
+    let button = document.querySelector('.default');
+    let textarea = document.querySelector('#textarea');
+    let ws = new WebSocket('ws://localhost:8081');
+    ws.onopen = function (e) {
+      console.log('Connection established!');
+      textarea.value += '建立了链接' + '\n';
+    };
+    ws.onmessage = function (e) {
+      console.log(e.data);   //接收到的消息
+      textarea.value += '收到的消息' + '\n' + e.data+ '\n';
+    };
+    button.addEventListener('click', function () {
+      ws.send('Hello World!');   //发送并携带参数
+      // textarea.value += '已发送消息' + '\n' + 'Hello World!';
+    });
+
+  </script>
+
+</body>
+
+</html>
