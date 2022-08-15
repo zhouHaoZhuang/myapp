@@ -2,7 +2,7 @@
 node_modules
 dist
 app-linux
-app-linux
+app-win.exe
 
 
 # Editor directories and files
