@@ -8,7 +8,7 @@ const os = require('os')
 const app = express()
 
 const port = 9000
-app.use('/',history({index:'indexl.html'}))
+// app.use('/',history({index:'indexl.html'}))
 
 app.use(express.static('www')) //设置静态文件目录
 
@@ -18,7 +18,7 @@ app.use(express.static('www')) //设置静态文件目录
 const bodyParser = require('body-parser')
 const common = require('./api/common/index.js')
 app.use('/api/common', common)
-app.use('/images', express.static(path.join(__dirname, '../uploads')))
+app.use('/images', express.static(path.join(__dirname, './www/uploads')))
 app.use(bodyParser.urlencoded({ extended: true }))
 
 //设置跨域访问

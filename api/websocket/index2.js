@@ -8,6 +8,8 @@ const httpServer = createServer(app)
 const io = new Server(httpServer, {
   /* options */
 })
+app.use(express.static('www')) //设置静态文件目录
+
 app.get('/', (req, res) => {
   fs.readFile('index2.htm', function (err, data) {
       if (err) {
@@ -18,6 +20,7 @@ app.get('/', (req, res) => {
       }
   })
 })
+
 io.on('connection', (socket) => {
   // ...
   socket.on('hehe', (data) => {

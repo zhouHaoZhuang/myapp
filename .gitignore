@@ -2,6 +2,7 @@
 node_modules
 /dist
 app.exe
+www
 
 # Editor directories and files
 .idea
