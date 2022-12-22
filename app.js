@@ -16,8 +16,8 @@ const options = {
   key: fs.readFileSync('./utils/8582373_zhouv.top.key')
 }
 
-const port = 443
-// app.use('/',history({index:'indexl.html'}))
+const port = 80
+app.use('/', history({ index: 'index.html' }))
 
 app.use(express.static('www')) //设置静态文件目录
 
@@ -52,7 +52,7 @@ app.all('*', function (req, res, next) {
 
 app.get('/', (req, res) => {
   // 当注册静态目录时会自动查找目录的index.html文件，该接口可以不写
-  fs.readFile('./www/indexl.html', function (err, data) {
+  fs.readFile('./www/index.html', function (err, data) {
     if (err) {
       throw err
     } else {
@@ -100,7 +100,7 @@ app.get('/select', async function (req, res) {
   console.log(articles)
   // res.setHeader('Set-Cookie', 'value=3pcookie; SameSite=none; Secure')
   // res.setHeader('Set-Cookie', 'value=3pcookie-legacy; SameSite=none; Secure')
-  res.setHeader('Set-Cookie', 'value=3pcookie; SameSite=none; Secure')
+  // res.setHeader('Set-Cookie', 'value=3pcookie; SameSite=none; Secure')
   // res.setHeader('Cookie', 'value=3pcookie-legacy')
   res.send(articles)
 })
@@ -124,21 +124,24 @@ function getIpAddress () {
 
 
 var server = https.createServer(options, app)
-// server
+// // server
 let ipAddress = getIpAddress()
+// app.listen(port, () => {
+//   console.log(`服务已启动Example app listening at http://${ipAddress}:${port}`)
+// })
 server.listen(port, () => {
   console.log(`服务已启动Example app listening at https://${ipAddress}:${port}`)
 })
 
 // const io = require('socket.io')(app)
 // io.on('connection', function (socket) {
-//     console.log('a user connected')
-//     socket.on('disconnect', function () {
-//         console.log('a user disconnected')
-//     })
-//     socket.on('message', function (msg) {
-//         console.log(msg)
-//         io.emit('message', msg)
-//     })
+//   console.log('a user connected')
+//   socket.on('disconnect', function () {
+//     console.log('a user disconnected')
+//   })
+//   socket.on('message', function (msg) {
+//     console.log(msg)
+//     io.emit('message', msg)
+//   })
 // }
 // )
